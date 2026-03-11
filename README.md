@@ -6,8 +6,41 @@ An advanced cervical cytology cell detection system for the **ISBI Challenge Tra
 
 ---
 
+## Detection Models at a Glance
+
+This project explores **5 distinct detection architectures**. Each has its own folder with a dedicated README containing full details, training commands, and architecture diagrams.
+
+| # | Model | Backbone | Detector | NMS? | Folder | Details |
+|---|-------|----------|----------|------|--------|---------|
+| 1 | **HybridCellDetector** (Primary) | ConvNeXt V2 + PathDINO ViT | DINO-DETR | No (Hungarian) | Root project | [This page](#architecture-overview) |
+| 2 | **Swin-RT-DETR** | Swin Transformer | RT-DETR Encoder/Decoder | No (End-to-end) | [`swin-rtdetr/`](swin-rtdetr/) | [README](swin-rtdetr/README.md) |
+| 3 | **Swin-YOLO** | Swin Transformer | YOLOv11x Head + FPN/PANet | Yes | [`swin-yolo/`](swin-yolo/) | [README](swin-yolo/README.md) |
+| 4 | **YOLOv11x** | YOLO11 CNN (XLarge) | YOLO Head + FPN/PANet | Yes | [`yolo11x/`](yolo11x/) | [README](yolo11x/README.md) |
+| 5 | **RT-DETR** | HGNetV2 (Ultralytics) | RT-DETR Decoder | No (End-to-end) | [`rtdetr/`](rtdetr/) | [README](rtdetr/README.md) |
+
+### Quick Comparison
+
+```
+                        ┌─────────────────────────────────────────────────────────┐
+                        │           MODEL COMPARISON                              │
+                        ├──────────────────┬──────────┬───────────┬───────────────┤
+                        │ Model            │ Backbone │ Head      │ Key Strength  │
+                        ├──────────────────┼──────────┼───────────┼───────────────┤
+                        │ HybridDetector   │ CNN+ViT  │ DINO-DETR │ Best accuracy │
+                        │ Swin-RT-DETR     │ Swin     │ RT-DETR   │ Dual transf.  │
+                        │ Swin-YOLO        │ Swin     │ YOLO      │ Swin+speed    │
+                        │ YOLOv11x         │ CNN      │ YOLO      │ Fast baseline │
+                        │ RT-DETR          │ HGNetV2  │ RT-DETR   │ Production    │
+                        └──────────────────┴──────────┴───────────┴───────────────┘
+```
+
+> **Recommendation**: Start with **RT-DETR** (`rtdetr/`) for a quick strong baseline, then move to **HybridCellDetector** (root project) for maximum accuracy. Use all models together via **Weighted Box Fusion** ensemble for the best competition score.
+
+---
+
 ## Table of Contents
 
+- [Detection Models at a Glance](#detection-models-at-a-glance)
 - [Architecture Overview](#architecture-overview)
 - [Project Structure](#project-structure)
 - [Model Architectures](#model-architectures)
