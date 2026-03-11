@@ -1,0 +1,110 @@
+# ========================
+# Model weights
+# ========================
+*.pt
+*.pth
+*.onnx
+*.bin
+*.h5
+*.weights
+*.safetensors
+
+# ========================
+# Datasets & images
+# ========================
+riva-partb-dataset/
+yolo_dataset/images/
+yolo_dataset/labels/
+
+# ========================
+# Training runs & experiments (checkpoints, logs, weights)
+# ========================
+experiments/
+runs/
+
+# ========================
+# Submissions (generated CSVs)
+# ========================
+submissions/
+
+# ========================
+# Archives
+# ========================
+*.zip
+
+# ========================
+# Python cache
+# ========================
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+
+# ========================
+# Jupyter / IPython
+# ========================
+.ipynb_checkpoints/
+Untitled.ipynb
+
+# ========================
+# Logs & debug artifacts
+# ========================
+error_log.txt
+output.log
+chat_history.txt
+debug_matcher.py
+debug_timm.py
+
+# ========================
+# Environment & IDE
+# ========================
+.vscode/
+.idea/
+.cursor-server/
+.cursor-server
+.windsurf-server/
+.windsurf-server
+.vscode-server/
+.vscode-server
+.conda/
+.cache/
+.config/
+.local/
+.nvm/
+.oh-my-zsh/
+.docker/
+.ssh/
+.jupyter/
+.ipython/
+.lightning_studio/
+.lightningignore
+.dotnet/
+
+# ========================
+# Shell / system dotfiles
+# ========================
+.bashrc
+.zshrc
+.zsh_history
+.zcompdump
+.vimrc
+.profile
+.gitconfig
+.wget-hsts
+.hushlogin
+.sudo_as_admin_successful
+.condarc
+
+# ========================
+# OS files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# VS Code workspace files
+# ========================
+*.code-workspace
+.copilot/

@@ -1,0 +1,57 @@
+# Inference Configuration
+inference:
+  # Model Loading
+  checkpoint_path: "./checkpoints/best.pth"
+  device: "cuda"
+  
+  # Test Time Augmentation
+  tta:
+    enabled: true
+    scales: [896, 1024, 1152, 1280]
+    flips: ["none", "horizontal", "vertical", "diagonal"]
+    rotations: [0, 90, 180, 270]
+    merge_method: "weighted_box_fusion"
+    
+  # Post-processing
+  postprocessing:
+    enabled: true
+    nms_iou_threshold: 0.5
+    nms_score_threshold: 0.05
+    max_detections: 300
+    confidence_threshold: 0.1
+    size_filter:
+      min_area: 25
+      max_area: 10000
+    cluster_nms: true
+    cluster_iou_threshold: 0.3
+    confidence_calibration: true
+    
+  # Ensemble Settings
+  ensemble:
+    enabled: true
+    models:
+      - name: "PathDINO-DETR"
+        path: "./checkpoints/model1.pth"
+        weight: 0.25
+      - name: "Swin-DETR"
+        path: "./checkpoints/model2.pth"
+        weight: 0.20
+      - name: "ConvNeXt-Hybrid"
+        path: "./checkpoints/model3.pth"
+        weight: 0.25
+      - name: "MaxViT-DETR"
+        path: "./checkpoints/model4.pth"
+        weight: 0.15
+      - name: "CaiT-Small"
+        path: "./checkpoints/model5.pth"
+        weight: 0.15
+    fusion_method: "weighted_box_fusion"
+    iou_threshold: 0.55
+    skip_box_thr: 0.0001
+    
+  # Output Settings
+  output:
+    format: "csv"
+    save_dir: "./submissions"
+    confidence_decimals: 6
+    include_metadata: true

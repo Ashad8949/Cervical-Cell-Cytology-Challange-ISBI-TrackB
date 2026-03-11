@@ -1,0 +1,45 @@
+# Model Configuration for RIVA Cell Detection
+model:
+  name: "HybridPathDINO"
+  
+  # Backbone Configuration
+  backbone:
+    type: "path_dino"  # path_dino, swin_large, convnext, maxvit
+    pretrained: true
+    freeze_blocks: [0, 1]  # Freeze first 2 blocks
+    feature_dim: 768
+    drop_path_rate: 0.2
+    
+  # Detection Head Configuration
+  detection_head:
+    type: "dino_detr"
+    num_queries: 500
+    num_decoder_layers: 6
+    num_encoder_layers: 6
+    dim_feedforward: 2048
+    nhead: 8
+    dropout: 0.1
+    activation: "relu"
+    
+  # Multi-scale Feature Pyramid
+  fpn:
+    enabled: true
+    in_channels: [192, 384, 768, 1536]
+    out_channels: 256
+    num_levels: 4
+    
+  # Loss Configuration
+  loss:
+    class_weight: 2.0
+    bbox_weight: 5.0
+    giou_weight: 2.0
+    focal_alpha: 0.25
+    focal_gamma: 2.0
+    denoising_weight: 0.5
+    
+  # Training Configuration
+  training:
+    num_classes: 1
+    aux_loss: true
+    two_stage: true
+    with_box_refine: true

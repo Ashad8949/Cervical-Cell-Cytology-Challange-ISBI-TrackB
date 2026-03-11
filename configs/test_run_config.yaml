@@ -1,0 +1,53 @@
+# Test Run Configuration for RIVA Cell Detection
+experiment_name: "riva_test_run_one_epoch"
+
+# Data paths
+# Using sample training data for quick test verification
+train_csv: "./riva-partb-dataset/annotations/train_sample.csv"
+val_csv: "./riva-partb-dataset/annotations/val.csv"
+image_dir: "./riva-partb-dataset/images"
+
+# Output directory
+output_dir: "./experiments"
+
+# Model Configuration
+cnn_backbone: "convnextv2_base"
+transformer_backbone: "vit_base_patch14_dinov2.lvd142m"
+detection_head: "dino_detr"
+num_classes: 1
+num_queries: 300
+pretrained: true
+
+# Training Configuration
+image_size: 1256
+batch_size: 16
+epochs: 10
+num_workers: 0  # Set to 0 for Windows compatibility/debugging
+
+# Optimization
+lr: 0.001
+backbone_lr: 0.001
+weight_decay: 0.001
+scheduler_T0: 10
+scheduler_T_mult: 2
+min_lr: 0.0000001
+
+# Augmentation
+strong_augmentation: false
+medical_augmentation: false
+
+# Mixed Precision
+mixed_precision: true
+accumulation_steps: 1
+grad_clip_norm: 0.1
+
+# Logging
+log_interval: 1  # More frequent logging for debugging
+eval_every: 1    # Evaluate after every epoch
+save_every: 1    # Save checkpoint after every epoch
+
+# Thresholds
+confidence_threshold: 0.1
+
+# Wandb (disabled for testing)
+use_wandb: false

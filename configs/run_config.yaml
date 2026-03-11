@@ -1,0 +1,53 @@
+# Run Configuration for RIVA Cell Detection
+experiment_name: "riva_cell_detection_v2"
+
+# Data paths
+train_csv: "./riva-partb-dataset/annotations/train.csv"
+val_csv: "./riva-partb-dataset/annotations/val.csv"
+image_dir: "./riva-partb-dataset/images"
+
+# Output directory
+output_dir: "./experiments"
+
+# Model Configuration
+cnn_backbone: "convnextv2_base"
+transformer_backbone: "path_dino"
+detection_head: "dino_detr"
+num_classes: 1
+num_queries: 300
+pretrained: true
+
+# Training Configuration
+image_size: 512
+batch_size: 2
+epochs: 30
+num_workers: 4
+
+# Optimization
+lr: 0.0001
+backbone_lr: 0.00001
+weight_decay: 0.0001
+warmup_epochs: 3
+scheduler_T0: 10
+scheduler_T_mult: 2
+min_lr: 0.0000001
+
+# Augmentation
+strong_augmentation: true
+medical_augmentation: true
+
+# Mixed Precision
+mixed_precision: true
+accumulation_steps: 2
+grad_clip_norm: 0.1
+
+# Logging
+log_interval: 20
+eval_every: 1
+save_every: 5
+
+# Thresholds
+confidence_threshold: 0.3
+
+# Wandb (disabled for testing)
+use_wandb: false

@@ -1,0 +1,76 @@
+# Training Configuration
+training:
+  # General Settings
+  seed: 42
+  debug: false
+  num_workers: 8
+  pin_memory: true
+  persistent_workers: true
+  
+  # Dataset Settings
+  data:
+    image_size: 1024
+    batch_size: 2
+    accumulation_steps: 8
+    num_folds: 5
+    fold: 0
+    
+  # Augmentation Settings
+  augmentation:
+    train:
+      horizontal_flip: 0.5
+      vertical_flip: 0.3
+      rotation: 15
+      scale: [0.9, 1.1]
+      translate: 0.1
+      shear: 5
+      color_jitter: [0.2, 0.2, 0.2, 0.1]
+      gaussian_blur: [3, 7]
+      gaussian_noise: [10, 50]
+      cutout: true
+      mixup: 0.3
+      cutmix: 0.3
+      
+    val:
+      resize_only: true
+      
+  # Optimization Settings
+  optimizer:
+    name: "AdamW"
+    lr: 2e-4
+    weight_decay: 1e-4
+    betas: [0.9, 0.999]
+    eps: 1e-8
+    
+  # Scheduler Settings
+  scheduler:
+    name: "CosineAnnealingWarmRestarts"
+    T_0: 10
+    T_mult: 2
+    eta_min: 1e-6
+    warmup_epochs: 5
+    warmup_factor: 0.001
+    
+  # Learning Rate Settings
+  lr_config:
+    backbone_lr_mult: 0.1
+    transformer_lr_mult: 1.0
+    head_lr_mult: 5.0
+    
+  # Training Schedule
+  epochs: 200
+  eval_every: 5
+  save_every: 10
+  early_stopping_patience: 30
+  grad_clip_norm: 0.1
+  
+  # Mixed Precision
+  mixed_precision: true
+  amp_level: "O2"
+  
+  # Checkpointing
+  checkpoint:
+    save_dir: "./checkpoints"
+    save_best: true
+    save_last: true
+    max_checkpoints: 5
